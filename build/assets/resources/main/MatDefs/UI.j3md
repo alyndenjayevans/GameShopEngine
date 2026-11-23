@@ -1,0 +1,21 @@
+MaterialDef UI {
+
+    MaterialParameters {
+        Texture2D ColorMap
+         
+    }
+
+    Technique {
+        VertexShader GLSL100 : Shaders/UI.vert
+        FragmentShader GLSL100 : Shaders/UI.frag
+
+        WorldParameters {
+            WorldViewProjectionMatrix
+             
+        }
+
+        RenderState {
+            Blend Alpha
+        }
+    }
+}
