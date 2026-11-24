@@ -16,6 +16,7 @@ import com.jme3.math.Ray;
 import com.jme3.math.Triangle;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import com.jme3.math.Vector4f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Geometry;
@@ -87,7 +88,7 @@ public class Main extends SimpleApplication {
         
          
         
-        flyCam.setEnabled(false);
+        //flyCam.setEnabled(false);
         inputManager.setCursorVisible(true);
         
         // Bind left mouse click
@@ -131,7 +132,14 @@ public class Main extends SimpleApplication {
 //        surface.controlPoints[6] = surface.controlPoints[6].add(new Vector3f(0,0,1));
 //        surface.controlPoints[7] = surface.controlPoints[7].add(new Vector3f(0,0,1));
 //        surface.controlPoints[8] = surface.controlPoints[8].add(new Vector3f(0,0,1));
-        
+        doc.registerWord("GAMESHOPWASHERE");
+        doc.drawAllWords();
+//        for (GameShopChar c: doc.charPool){
+//        System.out.println(c.character);
+//        }
+        for (Vector4f v: doc.characterTexCoordMap.values()){
+        System.out.println(v);
+        }
         doc.bake();
         //doc.geom.scale(10);
         

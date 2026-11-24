@@ -16,6 +16,7 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.VertexBuffer;
 import com.jme3.util.BufferUtils;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -27,7 +28,16 @@ import java.util.HashMap;
 public class GameShopDoc extends CurrencySurface {
 
     public HashMap<Character, Vector4f> characterTexCoordMap;
-     
+    
+    public GameShopChar[] charPool;
+    
+    public ArrayList<GameShopWord> words;
+    
+    //Word is from 0 to 255 vector range
+    
+    int cursorIndex = 0;
+    
+    
     
     public GameShopDoc(Vector3f[] vectors, ATMS atms, String address){
         super(vectors, atms, address);
@@ -36,8 +46,18 @@ public class GameShopDoc extends CurrencySurface {
         this.atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
         this.characterTexCoordMap = new HashMap<>();
         
+        charPool = new GameShopChar[256];
+        words = new ArrayList<>();
+        
         int xx = 0;
         int yy = 0;
+        
+        Vector3f start = new Vector3f(0, 0, 0);
+        Vector3f end = new Vector3f(1, 1, 0);
+
+        Vector3f distance = end.subtract(start);
+        Vector3f unitX = distance.divide(16);
+        Vector3f unitY = distance.divide(16);
         for (char c: FontMaker.alphaNumerical.toCharArray()){
         
             if (xx >= 4096){
@@ -53,7 +73,10 @@ public class GameShopDoc extends CurrencySurface {
             
             this.atms.drawATMS(atmsChar, xx, yy);
             this.atms.update();
-            characterTexCoordMap.put(c, new Vector4f((xx/4096), (yy/4096), ((xx + 256)/4096), ((yy + 256)/4096)));
+            
+             Vector3f current = new Vector3f(start.x + (((float)xx/256) * unitX.x), start.y + (((float)yy/256) * unitY.y), start.z + (1 * unitX.z));
+        
+            characterTexCoordMap.put(c, new Vector4f(current.x, current.y, current.x + unitX.x, current.y + unitY.y));
             
             xx += 256;
         }
@@ -77,12 +100,12 @@ public class GameShopDoc extends CurrencySurface {
         indexes = new int[(15 * 15 * 6)];
         vertices = new Vector3f[texCoords.length];
         
-        Vector3f start = new Vector3f(0,0,0);
-        Vector3f end = new Vector3f(1,1,0);
-        
-        Vector3f distance = end.subtract(start);
-        Vector3f unitX = distance.divide(15);
-        Vector3f unitY = distance.divide(15);
+//        Vector3f start = new Vector3f(0,0,0);
+//        Vector3f end = new Vector3f(1,1,0);
+//        
+//        Vector3f distance = end.subtract(start);
+//        Vector3f unitX = distance.divide(15);
+//        Vector3f unitY = distance.divide(15);
        
         int v = 0;
              
@@ -138,6 +161,10 @@ public class GameShopDoc extends CurrencySurface {
             }
         }
         
+        int charPoolIndex = 0;
+        
+        System.out.println("Index Length " + indexes.length);
+        
         int in = 0;
         for (int index = 0; index < indexes.length; index+=6){
         
@@ -152,8 +179,80 @@ public class GameShopDoc extends CurrencySurface {
             indexes[index + 4] = in + 31;
             indexes[index + 5] = in + 30;
             in+=2;
+            
+            charPool[charPoolIndex] = new GameShopChar('A', new int[]{in, in + 1, in + 30, in + 31});
+            charPoolIndex++;    
         }
         
+        System.out.println("CharPoolIndex " + charPoolIndex);
+        
+    }
+    
+    public void registerWord(String word){
+    
+        words.add(new GameShopWord(word, cursorIndex));
+        cursorIndex += word.length();
+        
+    }
+    
+    public void drawAllWords(){
+    
+        int i = 0;
+        for (GameShopWord word: words){
+        
+            for (char c: word.word.toCharArray()){
+            
+                charPool[i].character = c;
+                i++;
+            }
+        }
+    }
+    
+    public Vector2f[] renderAllWords(){
+    
+        Vector2f[] temp = new Vector2f[texCoords.length];
+        int tempT = 0;
+        for (Vector2f t: temp){
+        
+            temp[tempT] = new Vector2f();
+            tempT++;
+        }
+        int i = 0;
+        for (GameShopChar c: charPool){
+        
+//            if (i < charPool.length - 31){
+//            System.out.println("TexCoords " + texCoords[i] + " " + texCoords[c.indexes[0]]);
+//            temp[i] = texCoords[c.indexes[0]];
+//            temp[i + 1] = texCoords[c.indexes[1]];
+//            //if (i < charPool.length - 30){
+//            temp[i + 30] = texCoords[c.indexes[2]];
+//            //}
+//            temp[i + 31] = texCoords[c.indexes[3]];
+//            //}
+//            i+=2;
+//            }
+if (i % 30 == 0 && i > 0) {
+            
+                i += 30;
+            }
+if (i < charPool.length - 31){
+// System.out.println(i);
+            Vector4f store = this.characterTexCoordMap.get(c.character);
+            
+            System.out.println(i);
+            temp[i] = new Vector2f(store.x, store.y);
+            temp[i + 1] =  new Vector2f(store.z, store.y);
+            //if (i < charPool.length - 30){
+            temp[i + 30] =  new Vector2f(store.x, store.w);
+            //}
+            //if (i < charPool.length - 31){
+            temp[i + 31] =  new Vector2f(store.z, store.w);
+           // }
+            i+=2;
+           }
+        }
+        
+        return temp;
     }
     
     @Override
@@ -335,7 +434,7 @@ public class GameShopDoc extends CurrencySurface {
 //        }
         
         mesh.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(vertices));
-        mesh.setBuffer(VertexBuffer.Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoords));
+        mesh.setBuffer(VertexBuffer.Type.TexCoord, 2, BufferUtils.createFloatBuffer(renderAllWords()));
         mesh.setBuffer(VertexBuffer.Type.Index, 3, BufferUtils.createIntBuffer(indexes));
         mesh.updateBound();
         

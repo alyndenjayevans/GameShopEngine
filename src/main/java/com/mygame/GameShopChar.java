@@ -15,13 +15,13 @@ public class GameShopChar {
     
     public char character;
     
-    public float[] indexes; //4 indexes make a square
+    public int[] indexes; //4 indexes make a square
     
     public Vector3f startPosition;
     
     public Vector3f offset;
     
-    public GameShopChar(char character, float[] indexes){
+    public GameShopChar(char character, int[] indexes){
     
         this.character = character;
         this.indexes = indexes;

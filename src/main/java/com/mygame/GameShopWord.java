@@ -12,9 +12,15 @@ import com.jme3.math.Vector2f;
  */
 public class GameShopWord {
     
+    public int startIndex;
+    public int endIndex;
+    public String word;
     
-    public GameShopWord(String word){
+    public GameShopWord(String word, int startIndex){
     
+        this.word = word;
+        this.startIndex = startIndex;
+        this.endIndex = startIndex + this.word.length() - 1;
         
     }
     
