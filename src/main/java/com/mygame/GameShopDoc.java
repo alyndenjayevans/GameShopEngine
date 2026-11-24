@@ -32,7 +32,7 @@ public class GameShopDoc extends CurrencySurface {
     public GameShopDoc(Vector3f[] vectors, ATMS atms, String address){
         super(vectors, atms, address);
         
-        this.atms = new ATMS(4096, 1024);
+        this.atms = new ATMS(4096, 4096);
         this.atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
         this.characterTexCoordMap = new HashMap<>();
         
@@ -40,7 +40,7 @@ public class GameShopDoc extends CurrencySurface {
         int yy = 0;
         for (char c: FontMaker.alphaNumerical.toCharArray()){
         
-            if (xx > 4096){
+            if (xx >= 4096){
                 xx = 0;
                 yy += 256;
             }
@@ -53,7 +53,7 @@ public class GameShopDoc extends CurrencySurface {
             
             this.atms.drawATMS(atmsChar, xx, yy);
             this.atms.update();
-            characterTexCoordMap.put(c, new Vector4f((xx/4096), (yy/1024), ((xx + 256)/4096), ((yy + 256)/1024)));
+            characterTexCoordMap.put(c, new Vector4f((xx/4096), (yy/4096), ((xx + 256)/4096), ((yy + 256)/4096)));
             
             xx += 256;
         }
@@ -73,8 +73,8 @@ public class GameShopDoc extends CurrencySurface {
        // System.out.println(atms.texture.getImage().getData());
         
         mesh = new Mesh();
-        texCoords = new Vector2f[15 * 3 * 4];
-        indexes = new int[(15 * 3 * 6)];
+        texCoords = new Vector2f[15 * 15 * 4];
+        indexes = new int[(15 * 15 * 6)];
         vertices = new Vector3f[texCoords.length];
         
         Vector3f start = new Vector3f(0,0,0);
@@ -82,13 +82,13 @@ public class GameShopDoc extends CurrencySurface {
         
         Vector3f distance = end.subtract(start);
         Vector3f unitX = distance.divide(15);
-        Vector3f unitY = distance.divide(3);
+        Vector3f unitY = distance.divide(15);
        
         int v = 0;
              
-        for (int y = 0; y < 4; y++){
+        for (int y = 0; y < 16; y++){
         
-            if (y == 0 || y == 3){
+            if (y == 0 || y == 15){
             for (int x = 0; x < 16; x++){  
         //for (int v = 0; v < 49; v++){
         
@@ -171,13 +171,13 @@ public class GameShopDoc extends CurrencySurface {
         
         Vector3f distance = end.subtract(start);
         Vector3f unitX = distance.divide(15);
-        Vector3f unitY = distance.divide(3);
+        Vector3f unitY = distance.divide(15);
           
         int v = 0;
              
-        for (int y = 0; y < 4; y++){
+        for (int y = 0; y < 16; y++){
         
-            if (y == 0 || y == 3){
+            if (y == 0 || y == 15){
             for (int x = 0; x < 16; x++){  
         //for (int v = 0; v < 49; v++){
         
