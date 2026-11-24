@@ -46,7 +46,7 @@ public class GameShopDoc extends CurrencySurface {
         this.atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
         this.characterTexCoordMap = new HashMap<>();
         
-        charPool = new GameShopChar[256];
+        charPool = new GameShopChar[15 * 15];
         words = new ArrayList<>();
         
         int xx = 0;
@@ -178,19 +178,23 @@ public class GameShopDoc extends CurrencySurface {
             indexes[index + 3] = in + 1;
             indexes[index + 4] = in + 31;
             indexes[index + 5] = in + 30;
-            in+=2;
             
             charPool[charPoolIndex] = new GameShopChar('A', new int[]{in, in + 1, in + 30, in + 31});
-            charPoolIndex++;    
+            charPoolIndex++;  
+            
+            in+=2;
+            
+              
         }
         
         System.out.println("CharPoolIndex " + charPoolIndex);
         
+        //calculateCharPositions();
     }
     
-    public void registerWord(String word){
+    public void registerWord(String word, Vector3f position){
     
-        words.add(new GameShopWord(word, cursorIndex));
+        words.add(new GameShopWord(word, cursorIndex, position));
         cursorIndex += word.length();
         
     }
@@ -253,6 +257,75 @@ if (i < charPool.length - 31){
         }
         
         return temp;
+    }
+    
+    public void calculateCharPositions(){
+    
+        //int i = 0;
+        System.out.println(charPool[1].indexes[2]);
+        for (int i = 0; i < charPool.length; i++){
+    
+            System.out.println("Length " + charPool.length);
+            System.out.println("i " + i);
+            System.out.println("Index 2: " + charPool[i].indexes[2]);
+            
+            charPool[i].startPosition = new Vector3f(vertices[charPool[i].indexes[0]].add(vertices[charPool[i].indexes[1]].add(vertices[charPool[i].indexes[2]].add(vertices[charPool[i].indexes[3]])))).divide(4);
+         //   i++;
+    
+        }
+    }
+    
+    public void moveCharOffsetToWordPosition(){
+    
+         int i = 0;
+        for (GameShopWord word: words){
+        
+            for (char c: word.word.toCharArray()){
+            
+                charPool[i].offset = word.position;
+                i++;
+            }
+        }
+        
+    }
+    
+    public Vector3f[] moveAllWords(){
+    
+        Vector3f[] temp = new Vector3f[vertices.length];
+        int tempT = 0;
+        for (Vector3f t: temp){
+        
+            temp[tempT] = new Vector3f();
+            tempT++;
+        }
+        
+         int i = 0;
+        for (GameShopChar c: charPool){
+         
+if (i % 30 == 0 && i > 0) {
+            
+                i += 30;
+            }
+if (i < charPool.length - 31){
+// System.out.println(i);
+            //Vector4f store = this.characterTexCoordMap.get(c.character);
+            
+            System.out.println(i);
+            temp[i] = vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
+            temp[i + 1] =  vertices[i + 1].add(c.offset);
+            //if (i < charPool.length - 30){
+            temp[i + 30] =  vertices[i + 30].add(c.offset);
+            //}
+            //if (i < charPool.length - 31){
+            temp[i + 31] =  vertices[i + 31].add(c.offset);
+           // }
+            i+=2;
+           }
+        }
+        
+        return temp;
+        
+        
     }
     
     @Override
@@ -433,7 +506,10 @@ if (i < charPool.length - 31){
 //
 //        }
         
-        mesh.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(vertices));
+        this.calculateCharPositions();
+        
+        
+        mesh.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(moveAllWords()));
         mesh.setBuffer(VertexBuffer.Type.TexCoord, 2, BufferUtils.createFloatBuffer(renderAllWords()));
         mesh.setBuffer(VertexBuffer.Type.Index, 3, BufferUtils.createIntBuffer(indexes));
         mesh.updateBound();

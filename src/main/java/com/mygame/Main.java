@@ -132,14 +132,22 @@ public class Main extends SimpleApplication {
 //        surface.controlPoints[6] = surface.controlPoints[6].add(new Vector3f(0,0,1));
 //        surface.controlPoints[7] = surface.controlPoints[7].add(new Vector3f(0,0,1));
 //        surface.controlPoints[8] = surface.controlPoints[8].add(new Vector3f(0,0,1));
-        doc.registerWord("GAMESHOPWASHERE");
+        doc.registerWord("GAMESHOP", new Vector3f(-4f, 4f, 0f));
+        doc.registerWord("WAS", new Vector3f(-3f, 3f, 0f));
+        doc.registerWord("HERE", new Vector3f(-2f, 2f, 0f));
+        doc.registerWord("COSIGNED", new Vector3f(-1f, -1f, 0f));
+        doc.registerWord("RUNE", new Vector3f(0f, 0, 0f));
+        doc.registerWord("AND", new Vector3f(1f, -1f, 0f));
+        doc.registerWord("LYNDENJAYEVANS", new Vector3f(2f, -2f, 0f));
+       
         doc.drawAllWords();
+        doc.moveCharOffsetToWordPosition();
 //        for (GameShopChar c: doc.charPool){
 //        System.out.println(c.character);
 //        }
-        for (Vector4f v: doc.characterTexCoordMap.values()){
-        System.out.println(v);
-        }
+//        for (Vector4f v: doc.characterTexCoordMap.values()){
+//        System.out.println(v);
+//        }
         doc.bake();
         //doc.geom.scale(10);
         
