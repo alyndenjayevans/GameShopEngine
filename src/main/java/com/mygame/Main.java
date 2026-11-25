@@ -135,13 +135,13 @@ public class Main extends SimpleApplication {
         doc.registerWord("GAMESHOP", new Vector3f(-4f, 4f, 0f));
         doc.registerWord("WAS", new Vector3f(-3f, 3f, 0f));
         doc.registerWord("HERE", new Vector3f(-2f, 2f, 0f));
-        doc.registerWord("COSIGNED", new Vector3f(-1f, -1f, 0f));
+        doc.registerWord("SIGNED", new Vector3f(-1f, 1f, 0f));
         doc.registerWord("RUNE", new Vector3f(0f, 0, 0f));
         doc.registerWord("AND", new Vector3f(1f, -1f, 0f));
         doc.registerWord("LYNDENJAYEVANS", new Vector3f(2f, -2f, 0f));
        
         doc.drawAllWords();
-        doc.moveCharOffsetToWordPosition();
+      //  doc.moveCharOffsetToWordPosition();
 //        for (GameShopChar c: doc.charPool){
 //        System.out.println(c.character);
 //        }

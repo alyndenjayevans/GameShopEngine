@@ -278,11 +278,33 @@ if (i < charPool.length - 31){
     public void moveCharOffsetToWordPosition(){
     
          int i = 0;
+           
         for (GameShopWord word: words){
         
+            Vector3f position = word.position;
+            int firstChar = i;
+            Vector3f home = charPool[0].startPosition;//new Vector3f().subtract(charPool[firstChar].startPosition).add(position);
+            Vector3f homeStart = home.add(position);
             for (char c: word.word.toCharArray()){
-            
-                charPool[i].offset = word.position;
+               // System.out.println(charPool[i].indexes[1]);
+                float charSpace = vertices[charPool[i].indexes[1]].x - vertices[charPool[i].indexes[0]].x;
+//                float charSpaceY = vertices[charPool[i].indexes[1]].y - vertices[charPool[i].indexes[0]].y;
+                //float charSpaceZ = vertices[charPool[i].indexes[1]].y - vertices[charPool[i].indexes[0]].y;
+             
+                //charPool[i].offset = new Vector3f[4];
+               // if (i != firstChar){
+//                    charPool[i].offset[0] = new Vector3f(-charSpaceX/2, -charSpaceY/2, 0).add(position);
+//                    charPool[i].offset[1] = new Vector3f(charSpaceX/2, -charSpaceY/2, 0).add(position);
+//                    charPool[i].offset[2] = new Vector3f(-charSpaceX/2, charSpaceY/2, 0).add(position);
+//                    charPool[i].offset[3] = new Vector3f(charSpaceX/2, charSpaceY/2, 0).add(position);
+
+//      charPool[i].offset = charPool[i].offset.add(position.subtract(charPool[i].offset));
+                    //if (i != 0){
+                        charPool[i].offset = home.subtract(charPool[i].startPosition).add(position).add(charSpace * (i-firstChar), 0, 0);
+                    //}
+//                if (i != firstChar){
+//                charPool[i].offset = charPool[firstChar]..offset.add(charPool[i].offset).add(charSpace, 0, 0);
+//                }
                 i++;
             }
         }
@@ -507,7 +529,7 @@ if (i < charPool.length - 31){
 //        }
         
         this.calculateCharPositions();
-        
+        this.moveCharOffsetToWordPosition();
         
         mesh.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(moveAllWords()));
         mesh.setBuffer(VertexBuffer.Type.TexCoord, 2, BufferUtils.createFloatBuffer(renderAllWords()));

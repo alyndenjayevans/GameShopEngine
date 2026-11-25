@@ -25,6 +25,7 @@ public class GameShopChar {
     
         this.character = character;
         this.indexes = indexes;
+        //offset = new Vector3f[4];
     }
     
     public boolean onClick(Vector2f uv){
