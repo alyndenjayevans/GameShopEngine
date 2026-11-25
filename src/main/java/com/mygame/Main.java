@@ -88,7 +88,7 @@ public class Main extends SimpleApplication {
         
          
         
-        //flyCam.setEnabled(false);
+        flyCam.setEnabled(false);
         inputManager.setCursorVisible(true);
         
         // Bind left mouse click
@@ -135,7 +135,7 @@ public class Main extends SimpleApplication {
         doc.registerWord("GAMESHOP", new Vector3f(-4f, 4f, 0f));
         doc.registerWord("WAS", new Vector3f(-3f, 3f, 0f));
         doc.registerWord("HERE", new Vector3f(-2f, 2f, 0f));
-        doc.registerWord("SIGNED", new Vector3f(-1f, 1f, 0f));
+        doc.registerWord("COSIGNED", new Vector3f(-1f, 1f, 0f));
         doc.registerWord("RUNE", new Vector3f(0f, 0, 0f));
         doc.registerWord("AND", new Vector3f(1f, -1f, 0f));
         doc.registerWord("LYNDENJAYEVANS", new Vector3f(2f, -2f, 0f));
@@ -263,13 +263,15 @@ public class Main extends SimpleApplication {
         Vector3f baryCoords = getBarycentric(localContact, v0, v1, v2);
 
         // 7. Fetch the 3 UV coordinates from TexCoord buffer
-        FloatBuffer uvBuf = hitMesh.getFloatBuffer(VertexBuffer.Type.TexCoord);
+        FloatBuffer uvBuf = hitMesh.getFloatBuffer(VertexBuffer.Type.TexCoord2);
         Vector2f uv0 = new Vector2f();
         Vector2f uv1 = new Vector2f();
         Vector2f uv2 = new Vector2f();
         BufferUtils.populateFromBuffer(uv0, uvBuf, i0);
         BufferUtils.populateFromBuffer(uv1, uvBuf, i1);
         BufferUtils.populateFromBuffer(uv2, uvBuf, i2);
+
+       
 
         // 8. Interpolate final UV: (uv0 * bary.x) + (uv1 * bary.y) + (uv2 * bary.z)
         float u = uv0.x * baryCoords.x + uv1.x * baryCoords.y + uv2.x * baryCoords.z;

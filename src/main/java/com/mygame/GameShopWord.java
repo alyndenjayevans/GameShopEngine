@@ -6,6 +6,7 @@ package com.mygame;
 
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import com.jme3.math.Vector4f;
 
 /**
  *
@@ -17,6 +18,7 @@ public class GameShopWord {
     public int endIndex;
     public String word;
     public Vector3f position;
+    public Vector4f uv;
     
     
     public GameShopWord(String word, int startIndex, Vector3f position){
@@ -25,6 +27,7 @@ public class GameShopWord {
         this.startIndex = startIndex;
         this.endIndex = startIndex + this.word.length() - 1;
         this.position = position;
+        this.uv = new Vector4f();
     }
     
     public void onClick(Vector2f uv){

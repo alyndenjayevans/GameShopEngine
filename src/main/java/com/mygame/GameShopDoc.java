@@ -278,9 +278,10 @@ if (i < charPool.length - 31){
     public void moveCharOffsetToWordPosition(){
     
          int i = 0;
-           
+         int j = 0;
         for (GameShopWord word: words){
         
+            words.get(j).uv = new Vector4f(texCoords[charPool[words.get(j).startIndex].indexes[0]].x, texCoords[charPool[words.get(j).startIndex].indexes[0]].y,texCoords[charPool[words.get(j).endIndex].indexes[3]].x, texCoords[charPool[words.get(j).endIndex].indexes[3]].y);
             Vector3f position = word.position;
             int firstChar = i;
             Vector3f home = charPool[0].startPosition;//new Vector3f().subtract(charPool[firstChar].startPosition).add(position);
@@ -288,25 +289,14 @@ if (i < charPool.length - 31){
             for (char c: word.word.toCharArray()){
                // System.out.println(charPool[i].indexes[1]);
                 float charSpace = vertices[charPool[i].indexes[1]].x - vertices[charPool[i].indexes[0]].x;
-//                float charSpaceY = vertices[charPool[i].indexes[1]].y - vertices[charPool[i].indexes[0]].y;
-                //float charSpaceZ = vertices[charPool[i].indexes[1]].y - vertices[charPool[i].indexes[0]].y;
-             
-                //charPool[i].offset = new Vector3f[4];
-               // if (i != firstChar){
-//                    charPool[i].offset[0] = new Vector3f(-charSpaceX/2, -charSpaceY/2, 0).add(position);
-//                    charPool[i].offset[1] = new Vector3f(charSpaceX/2, -charSpaceY/2, 0).add(position);
-//                    charPool[i].offset[2] = new Vector3f(-charSpaceX/2, charSpaceY/2, 0).add(position);
-//                    charPool[i].offset[3] = new Vector3f(charSpaceX/2, charSpaceY/2, 0).add(position);
-
-//      charPool[i].offset = charPool[i].offset.add(position.subtract(charPool[i].offset));
-                    //if (i != 0){
-                        charPool[i].offset = home.subtract(charPool[i].startPosition).add(position).add(charSpace * (i-firstChar), 0, 0);
-                    //}
-//                if (i != firstChar){
-//                charPool[i].offset = charPool[firstChar]..offset.add(charPool[i].offset).add(charSpace, 0, 0);
-//                }
+          
+                charPool[i].uv = new Vector4f(texCoords[charPool[i].indexes[0]].x, texCoords[charPool[i].indexes[0]].y, texCoords[charPool[i].indexes[3]].x, texCoords[charPool[i].indexes[3]].y);
+                
+                charPool[i].offset = home.subtract(charPool[i].startPosition).add(position).add(charSpace * (i-firstChar), 0, 0);
+                        
                 i++;
             }
+            j++;
         }
         
     }
@@ -348,6 +338,37 @@ if (i < charPool.length - 31){
         return temp;
         
         
+    }
+    
+    @Override
+    public void onClick(Vector2f uv){
+    
+        int i = 0;
+        for (GameShopWord word: words){
+            
+            for (char c: word.word.toCharArray()){
+            
+                if (uv.x >= charPool[i].uv.x && uv.x <= charPool[i].uv.z && uv.y >= charPool[i].uv.y && uv.y <= charPool[i].uv.w){
+                     
+                    System.out.println(c);
+                    System.out.println(word.word);
+                    
+                }  
+                i++;
+            }
+//            System.out.println(word.word);
+//        System.out.println("uv " + uv.x + " " + uv.y);
+//        System.out.println("word" + word.uv.x + " " + word.uv.y + " " + word.uv.z + " " + word.uv.w);
+            //if (uv.x >= word.uv.x && uv.x <= word.uv.z && uv.y >= word.uv.y && uv.y <= word.uv.w){
+            
+               // System.out.println(word.word);
+            //}  
+        }
+    }
+    
+      @Override
+    public void onDrag(Vector2f uv){
+       // super.onDrag(uv);
     }
     
     @Override
@@ -534,6 +555,8 @@ if (i < charPool.length - 31){
         mesh.setBuffer(VertexBuffer.Type.Position, 3, BufferUtils.createFloatBuffer(moveAllWords()));
         mesh.setBuffer(VertexBuffer.Type.TexCoord, 2, BufferUtils.createFloatBuffer(renderAllWords()));
         mesh.setBuffer(VertexBuffer.Type.Index, 3, BufferUtils.createIntBuffer(indexes));
+        mesh.setBuffer(VertexBuffer.Type.TexCoord2, 2, BufferUtils.createFloatBuffer(texCoords));
+      
         mesh.updateBound();
         
         System.out.println(vertices.length);

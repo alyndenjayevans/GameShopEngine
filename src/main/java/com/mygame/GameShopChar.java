@@ -6,6 +6,7 @@ package com.mygame;
 
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import com.jme3.math.Vector4f;
 
 /**
  *
@@ -21,10 +22,13 @@ public class GameShopChar {
     
     public Vector3f offset;
     
+    public Vector4f uv;
+    
     public GameShopChar(char character, int[] indexes){
     
         this.character = character;
         this.indexes = indexes;
+        this.uv = new Vector4f();
         //offset = new Vector3f[4];
     }
     
