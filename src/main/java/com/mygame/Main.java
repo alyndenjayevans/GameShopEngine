@@ -47,6 +47,8 @@ public class Main extends SimpleApplication {
     public CurrencySurface surface;
     
     public GameShopDoc doc;
+    public GameShopDoc selector;
+    public GameShopDoc buttons;
     
     public static void main(String[] args) {
         Main app = new Main();
@@ -127,14 +129,14 @@ public class Main extends SimpleApplication {
         surface.bake();
         */
 
- doc = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(1,1,0)), atms, "CurrencySurface");
+ doc = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), null, "CurrencySurface");
  
 //        surface.controlPoints[6] = surface.controlPoints[6].add(new Vector3f(0,0,1));
 //        surface.controlPoints[7] = surface.controlPoints[7].add(new Vector3f(0,0,1));
 //        surface.controlPoints[8] = surface.controlPoints[8].add(new Vector3f(0,0,1));
         //doc.words.add(new GameShopWord(word, cursorIndex, position));
       
-        doc.words.add(new GameShopWord("GAMESHOP", doc.cursorIndex, new Vector3f(-4f, 4f, 0f)){
+        doc.words.add(new GameShopWord("CREATE", doc.cursorIndex, new Vector3f(-7f, 3.75f, 0f)){
         
             @Override
             public void onClick(Vector2f uv){
@@ -142,7 +144,47 @@ public class Main extends SimpleApplication {
                 System.out.println("GameShop Rules");
             }
         });
-        doc.registerWord("GAMESHOP");
+        doc.registerWord("CREATE");
+        
+        doc.words.add(new GameShopWord("MESH", doc.cursorIndex, new Vector3f(-4f, 3.75f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("GameShop Rules");
+            }
+        });
+        doc.registerWord("MESH");
+        
+        doc.words.add(new GameShopWord("ATMS", doc.cursorIndex, new Vector3f(-1f, 3.75f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("GameShop Rules");
+            }
+        });
+        doc.registerWord("ATMS");
+        
+        doc.words.add(new GameShopWord("ANIMATE", doc.cursorIndex, new Vector3f(2f, 3.75f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("Animate");
+            }
+        });
+        doc.registerWord("ANIMATE");
+        
+        doc.words.add(new GameShopWord("SAVE", doc.cursorIndex, new Vector3f(5f, 3.75f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("Save");
+            }
+        });
+        doc.registerWord("SAVE");
 //        doc.registerWord("WAS", new Vector3f(-3f, 3f, 0f));
 //        doc.registerWord("HERE", new Vector3f(-2f, 2f, 0f));
 //        doc.registerWord("COSIGNED", new Vector3f(-1f, 1f, 0f));
@@ -158,7 +200,9 @@ public class Main extends SimpleApplication {
 //        for (Vector4f v: doc.characterTexCoordMap.values()){
 //        System.out.println(v);
 //        }
+ 
         doc.bake();
+        //doc.geom.scale(1.1f);
         //doc.geom.scale(10);
         
         
