@@ -132,13 +132,23 @@ public class Main extends SimpleApplication {
 //        surface.controlPoints[6] = surface.controlPoints[6].add(new Vector3f(0,0,1));
 //        surface.controlPoints[7] = surface.controlPoints[7].add(new Vector3f(0,0,1));
 //        surface.controlPoints[8] = surface.controlPoints[8].add(new Vector3f(0,0,1));
-        doc.registerWord("GAMESHOP", new Vector3f(-4f, 4f, 0f));
-        doc.registerWord("WAS", new Vector3f(-3f, 3f, 0f));
-        doc.registerWord("HERE", new Vector3f(-2f, 2f, 0f));
-        doc.registerWord("COSIGNED", new Vector3f(-1f, 1f, 0f));
-        doc.registerWord("RUNE", new Vector3f(0f, 0, 0f));
-        doc.registerWord("AND", new Vector3f(1f, -1f, 0f));
-        doc.registerWord("LYNDENJAYEVANS", new Vector3f(2f, -2f, 0f));
+        //doc.words.add(new GameShopWord(word, cursorIndex, position));
+      
+        doc.words.add(new GameShopWord("GAMESHOP", doc.cursorIndex, new Vector3f(-4f, 4f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("GameShop Rules");
+            }
+        });
+        doc.registerWord("GAMESHOP");
+//        doc.registerWord("WAS", new Vector3f(-3f, 3f, 0f));
+//        doc.registerWord("HERE", new Vector3f(-2f, 2f, 0f));
+//        doc.registerWord("COSIGNED", new Vector3f(-1f, 1f, 0f));
+//        doc.registerWord("RUNE", new Vector3f(0f, 0, 0f));
+//        doc.registerWord("AND", new Vector3f(1f, -1f, 0f));
+//        doc.registerWord("LYNDENJAYEVANS", new Vector3f(2f, -2f, 0f));
        
         doc.drawAllWords();
       //  doc.moveCharOffsetToWordPosition();

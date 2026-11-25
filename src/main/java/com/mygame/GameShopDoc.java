@@ -192,9 +192,9 @@ public class GameShopDoc extends CurrencySurface {
         //calculateCharPositions();
     }
     
-    public void registerWord(String word, Vector3f position){
+    public void registerWord(String word){
     
-        words.add(new GameShopWord(word, cursorIndex, position));
+//        words.add(new GameShopWord(word, cursorIndex, position));
         cursorIndex += word.length();
         
     }
@@ -350,8 +350,9 @@ if (i < charPool.length - 31){
             
                 if (uv.x >= charPool[i].uv.x && uv.x <= charPool[i].uv.z && uv.y >= charPool[i].uv.y && uv.y <= charPool[i].uv.w){
                      
-                    System.out.println(c);
-                    System.out.println(word.word);
+                   charPool[i].onClick(uv);
+                   word.onClick(uv);
+                   break;
                     
                 }  
                 i++;
