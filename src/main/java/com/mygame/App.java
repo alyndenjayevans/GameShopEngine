@@ -17,6 +17,8 @@ public class App {
     public static SimpleApplication app;
     public static HashMap<Geometry, CurrencySurface> surfaceCollisions;
     public static Geometry fontGeom;
+    public static HashMap<String, GameShopDoc> selectors;
+    public static HashMap<String, GameShopDoc> buttons;
     //public static HashMap<Geometry, GameShopDoc> docs;
     
     //public static FontMaker fontMaker;
@@ -26,6 +28,8 @@ public class App {
         App.app = app;
         App.surfaceCollisions = new HashMap<>();
         App.fontGeom = new Geometry();
+        App.selectors = new HashMap<>();
+        App.buttons = new HashMap<>();
        // App.docs = new HashMap<>();
       //  App.fontMaker = new FontMaker();
     }

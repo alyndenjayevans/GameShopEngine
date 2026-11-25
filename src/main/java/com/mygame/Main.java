@@ -47,8 +47,14 @@ public class Main extends SimpleApplication {
     public CurrencySurface surface;
     
     public GameShopDoc doc;
-    public GameShopDoc selector;
-    public GameShopDoc buttons;
+//    public GameShopDoc selector;
+//    public GameShopDoc buttons;
+    
+    public GameShopDoc create;
+    public GameShopDoc mesh;
+    public GameShopDoc atms;
+    public GameShopDoc animate;
+    public GameShopDoc save;
     
     public static void main(String[] args) {
         Main app = new Main();
@@ -102,14 +108,14 @@ public class Main extends SimpleApplication {
         
         System.out.println("DeCasteljaus " + CurrencySurface.deCasteljaus(new Vector3f[]{new Vector3f(0,0,0), new Vector3f(1,0,0), new Vector3f(2,2,0), new Vector3f(3,1,0)}, 0.5f));
         
-        ATMS atms = new ATMS(256,256);
-        // Loads "assets/Data/level1.sav"
-        ATMS loadAtms = (ATMS) assetManager.loadAsset("ATMS/Fonts/Default/L.font.atms");
-
-        atms.data = loadAtms.data;
-        //atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
-        //atms.drawCircle(128, 128, 64, (byte)255, (byte)255, (byte)255, (byte)255);
-       atms.update();
+//        ATMS atms = new ATMS(256,256);
+//        // Loads "assets/Data/level1.sav"
+//        ATMS loadAtms = (ATMS) assetManager.loadAsset("ATMS/Fonts/Default/L.font.atms");
+//
+//        atms.data = loadAtms.data;
+//        //atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
+//        //atms.drawCircle(128, 128, 64, (byte)255, (byte)255, (byte)255, (byte)255);
+//       atms.update();
  
 //        Box b = new Box(1, 1, 1);
 //        Geometry geom = new Geometry("Box", b);
@@ -129,7 +135,7 @@ public class Main extends SimpleApplication {
         surface.bake();
         */
 
- doc = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), null, "CurrencySurface");
+ doc = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), null, "Doc");
  
 //        surface.controlPoints[6] = surface.controlPoints[6].add(new Vector3f(0,0,1));
 //        surface.controlPoints[7] = surface.controlPoints[7].add(new Vector3f(0,0,1));
@@ -202,6 +208,33 @@ public class Main extends SimpleApplication {
 //        }
  
         doc.bake();
+        
+        create = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), null, "Create");
+ 
+        create.words.add(new GameShopWord("CREATESTUFFHERE", doc.cursorIndex, new Vector3f(-7f, 3.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("Create Things");
+            }
+        });
+        create.registerWord("CREATESTUFFHERE");
+        
+        
+         create.drawAllWords();
+      //  doc.moveCharOffsetToWordPosition();
+//        for (GameShopChar c: doc.charPool){
+//        System.out.println(c.character);
+//        }
+//        for (Vector4f v: doc.characterTexCoordMap.values()){
+//        System.out.println(v);
+//        }
+ 
+        create.bake();
+        
+        App.selectors.put("Create", create);
+        //App.selectors.put("Save", save);
         //doc.geom.scale(1.1f);
         //doc.geom.scale(10);
         
