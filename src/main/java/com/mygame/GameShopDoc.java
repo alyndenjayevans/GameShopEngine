@@ -163,7 +163,7 @@ public class GameShopDoc extends CurrencySurface {
         
         int charPoolIndex = 0;
         
-        System.out.println("Index Length " + indexes.length);
+       // System.out.println("Index Length " + indexes.length);
         
         int in = 0;
         for (int index = 0; index < indexes.length; index+=6){
@@ -187,7 +187,7 @@ public class GameShopDoc extends CurrencySurface {
               
         }
         
-        System.out.println("CharPoolIndex " + charPoolIndex);
+        //System.out.println("CharPoolIndex " + charPoolIndex);
         
         //calculateCharPositions();
     }
@@ -243,7 +243,7 @@ if (i < charPool.length - 31){
 // System.out.println(i);
             Vector4f store = this.characterTexCoordMap.get(c.character);
             
-            System.out.println(i);
+          //  System.out.println(i);
             temp[i] = new Vector2f(store.x, store.y);
             temp[i + 1] =  new Vector2f(store.z, store.y);
             //if (i < charPool.length - 30){
@@ -262,12 +262,12 @@ if (i < charPool.length - 31){
     public void calculateCharPositions(){
     
         //int i = 0;
-        System.out.println(charPool[1].indexes[2]);
+        //System.out.println(charPool[1].indexes[2]);
         for (int i = 0; i < charPool.length; i++){
     
-            System.out.println("Length " + charPool.length);
-            System.out.println("i " + i);
-            System.out.println("Index 2: " + charPool[i].indexes[2]);
+//            System.out.println("Length " + charPool.length);
+//            System.out.println("i " + i);
+//            System.out.println("Index 2: " + charPool[i].indexes[2]);
             
             charPool[i].startPosition = new Vector3f(vertices[charPool[i].indexes[0]].add(vertices[charPool[i].indexes[1]].add(vertices[charPool[i].indexes[2]].add(vertices[charPool[i].indexes[3]])))).divide(4);
          //   i++;
@@ -322,7 +322,7 @@ if (i < charPool.length - 31){
 // System.out.println(i);
             //Vector4f store = this.characterTexCoordMap.get(c.character);
             
-            System.out.println(i);
+           // System.out.println(i);
             temp[i] = vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
             temp[i + 1] =  vertices[i + 1].add(c.offset);
             //if (i < charPool.length - 30){
@@ -344,6 +344,7 @@ if (i < charPool.length - 31){
     public void onClick(Vector2f uv){
     
         int i = 0;
+        boolean isBreak = false;
         for (GameShopWord word: words){
             
             for (char c: word.word.toCharArray()){
@@ -352,10 +353,15 @@ if (i < charPool.length - 31){
                      
                    charPool[i].onClick(uv);
                    word.onClick(uv);
+                   isBreak = true;
                    break;
                     
                 }  
                 i++;
+            }
+            if (isBreak){
+            
+                break;
             }
 //            System.out.println(word.word);
 //        System.out.println("uv " + uv.x + " " + uv.y);
@@ -560,13 +566,13 @@ if (i < charPool.length - 31){
       
         mesh.updateBound();
         
-        System.out.println(vertices.length);
-        System.out.println(texCoords.length);
-        
-        System.out.println(Arrays.asList(vertices));
-        System.out.println(Arrays.asList(texCoords));
-        System.out.println(Arrays.toString(indexes));
-        
+//        System.out.println(vertices.length);
+//        System.out.println(texCoords.length);
+//        
+//        System.out.println(Arrays.asList(vertices));
+//        System.out.println(Arrays.asList(texCoords));
+//        System.out.println(Arrays.toString(indexes));
+//        
         geom = new Geometry("Mesh", mesh);
 
         Material mat = new Material(App.app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
@@ -592,7 +598,7 @@ if (i < charPool.length - 31){
         
         App.surfaceCollisions.put(geom, this);
         
-        System.out.println("Done");
+        //System.out.println("Done");
         atms.update();
        // System.out.println(geom.getLocalTranslation());
        //  App.app.getCamera().lookAt(new Vector3f(), Vector3f.UNIT_Y);

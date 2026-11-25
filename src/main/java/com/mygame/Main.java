@@ -52,9 +52,15 @@ public class Main extends SimpleApplication {
     
     public GameShopDoc create;
     public GameShopDoc mesh;
-    public GameShopDoc atms;
+    public GameShopDoc atmsMode;
     public GameShopDoc animate;
     public GameShopDoc save;
+    
+    public GameShopDoc createUI;
+    public GameShopDoc meshUI;
+    public GameShopDoc atmsUI;
+    public GameShopDoc animateUI;
+    public GameShopDoc saveUI;
     
     public static void main(String[] args) {
         Main app = new Main();
@@ -106,16 +112,16 @@ public class Main extends SimpleApplication {
         inputManager.addListener(clickAnalogListener, "ClickMesh");
         
         
-        System.out.println("DeCasteljaus " + CurrencySurface.deCasteljaus(new Vector3f[]{new Vector3f(0,0,0), new Vector3f(1,0,0), new Vector3f(2,2,0), new Vector3f(3,1,0)}, 0.5f));
+        //System.out.println("DeCasteljaus " + CurrencySurface.deCasteljaus(new Vector3f[]{new Vector3f(0,0,0), new Vector3f(1,0,0), new Vector3f(2,2,0), new Vector3f(3,1,0)}, 0.5f));
         
-//        ATMS atms = new ATMS(256,256);
-//        // Loads "assets/Data/level1.sav"
-//        ATMS loadAtms = (ATMS) assetManager.loadAsset("ATMS/Fonts/Default/L.font.atms");
-//
-//        atms.data = loadAtms.data;
-//        //atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
-//        //atms.drawCircle(128, 128, 64, (byte)255, (byte)255, (byte)255, (byte)255);
-//       atms.update();
+        ATMS atms = new ATMS(256,256);
+        // Loads "assets/Data/level1.sav"
+        ATMS loadAtms = (ATMS) assetManager.loadAsset("ATMS/Fonts/Default/L.font.atms");
+
+        atms.data = loadAtms.data;
+        //atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
+        //atms.drawCircle(128, 128, 64, (byte)255, (byte)255, (byte)255, (byte)255);
+       atms.update();
  
 //        Box b = new Box(1, 1, 1);
 //        Geometry geom = new Geometry("Box", b);
@@ -135,7 +141,7 @@ public class Main extends SimpleApplication {
         surface.bake();
         */
 
- doc = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), null, "Doc");
+ doc = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Doc");
  
 //        surface.controlPoints[6] = surface.controlPoints[6].add(new Vector3f(0,0,1));
 //        surface.controlPoints[7] = surface.controlPoints[7].add(new Vector3f(0,0,1));
@@ -147,7 +153,8 @@ public class Main extends SimpleApplication {
             @Override
             public void onClick(Vector2f uv){
             
-                System.out.println("GameShop Rules");
+                App.selectMode(Mode.CREATE);
+                //System.out.println("GameShop Rules");
             }
         });
         doc.registerWord("CREATE");
@@ -157,7 +164,8 @@ public class Main extends SimpleApplication {
             @Override
             public void onClick(Vector2f uv){
             
-                System.out.println("GameShop Rules");
+                App.selectMode(Mode.MESH);
+                //System.out.println("GameShop Rules");
             }
         });
         doc.registerWord("MESH");
@@ -167,7 +175,8 @@ public class Main extends SimpleApplication {
             @Override
             public void onClick(Vector2f uv){
             
-                System.out.println("GameShop Rules");
+                App.selectMode(Mode.ATMS);
+                //System.out.println("ATMS Rules");
             }
         });
         doc.registerWord("ATMS");
@@ -177,7 +186,8 @@ public class Main extends SimpleApplication {
             @Override
             public void onClick(Vector2f uv){
             
-                System.out.println("Animate");
+                //App.selectMode(Mode.ANIMATE);
+                System.out.println("Animate Rules");
             }
         });
         doc.registerWord("ANIMATE");
@@ -187,6 +197,7 @@ public class Main extends SimpleApplication {
             @Override
             public void onClick(Vector2f uv){
             
+                //App.selectMode(Mode.SAVE);
                 System.out.println("Save");
             }
         });
@@ -209,9 +220,9 @@ public class Main extends SimpleApplication {
  
         doc.bake();
         
-        create = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), null, "Create");
+        create = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Create");
  
-        create.words.add(new GameShopWord("CREATESTUFFHERE", doc.cursorIndex, new Vector3f(-7f, 3.5f, 0f)){
+        create.words.add(new GameShopWord("CREATESTUFFHERE", create.cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
         
             @Override
             public void onClick(Vector2f uv){
@@ -233,7 +244,108 @@ public class Main extends SimpleApplication {
  
         create.bake();
         
-        App.selectors.put("Create", create);
+          atmsMode = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "ATMS");
+ 
+        atmsMode.words.add(new GameShopWord("ATMSSTUFFHERE", atmsMode.cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.ATMS);
+                System.out.println("ATMS Stuff");
+            }
+        });
+        atmsMode.registerWord("ATMSSTUFFHERE");
+        
+        
+         atmsMode.drawAllWords();
+      //  doc.moveCharOffsetToWordPosition();
+//        for (GameShopChar c: doc.charPool){
+//        System.out.println(c.character);
+//        }
+//        for (Vector4f v: doc.characterTexCoordMap.values()){
+//        System.out.println(v);
+//        }
+ 
+        atmsMode.bake();
+        
+        
+//          create = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Create");
+// 
+//        create.words.add(new GameShopWord("CREATESTUFFHERE", doc.cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
+//        
+//            @Override
+//            public void onClick(Vector2f uv){
+//            
+//                System.out.println("Create Things");
+//            }
+//        });
+//        create.registerWord("CREATESTUFFHERE");
+//        
+//        
+//         create.drawAllWords();
+//      //  doc.moveCharOffsetToWordPosition();
+////        for (GameShopChar c: doc.charPool){
+////        System.out.println(c.character);
+////        }
+////        for (Vector4f v: doc.characterTexCoordMap.values()){
+////        System.out.println(v);
+////        }
+// 
+//        create.bake();
+//        
+//          create = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Create");
+// 
+//        create.words.add(new GameShopWord("CREATESTUFFHERE", doc.cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
+//        
+//            @Override
+//            public void onClick(Vector2f uv){
+//            
+//                System.out.println("Create Things");
+//            }
+//        });
+//        create.registerWord("CREATESTUFFHERE");
+//        
+//        
+//         create.drawAllWords();
+//      //  doc.moveCharOffsetToWordPosition();
+////        for (GameShopChar c: doc.charPool){
+////        System.out.println(c.character);
+////        }
+////        for (Vector4f v: doc.characterTexCoordMap.values()){
+////        System.out.println(v);
+////        }
+// 
+//        create.bake();
+//        
+//          create = new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Create");
+// 
+//        create.words.add(new GameShopWord("CREATESTUFFHERE", doc.cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
+//        
+//            @Override
+//            public void onClick(Vector2f uv){
+//            
+//                System.out.println("Create Things");
+//            }
+//        });
+//        create.registerWord("CREATESTUFFHERE");
+//        
+//        
+//         create.drawAllWords();
+//      //  doc.moveCharOffsetToWordPosition();
+////        for (GameShopChar c: doc.charPool){
+////        System.out.println(c.character);
+////        }
+////        for (Vector4f v: doc.characterTexCoordMap.values()){
+////        System.out.println(v);
+////        }
+// 
+       //create.bake();
+        
+        App.selectors.put(Mode.CREATE, create);
+        App.selectors.put(Mode.ATMS, atmsMode);
+        
+        App.selectMode(Mode.CREATE);
         //App.selectors.put("Save", save);
         //doc.geom.scale(1.1f);
         //doc.geom.scale(10);

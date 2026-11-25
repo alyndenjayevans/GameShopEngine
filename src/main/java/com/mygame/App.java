@@ -17,8 +17,9 @@ public class App {
     public static SimpleApplication app;
     public static HashMap<Geometry, CurrencySurface> surfaceCollisions;
     public static Geometry fontGeom;
-    public static HashMap<String, GameShopDoc> selectors;
-    public static HashMap<String, GameShopDoc> buttons;
+    public static HashMap<Mode, GameShopDoc> selectors;
+    public static HashMap<Mode, GameShopDoc> buttons;
+    
     //public static HashMap<Geometry, GameShopDoc> docs;
     
     //public static FontMaker fontMaker;
@@ -30,7 +31,47 @@ public class App {
         App.fontGeom = new Geometry();
         App.selectors = new HashMap<>();
         App.buttons = new HashMap<>();
+//        App.selectMode(Mode.CREATE);
        // App.docs = new HashMap<>();
       //  App.fontMaker = new FontMaker();
+    }
+    
+    public static void selectMode(Mode mode){
+        
+        for (GameShopDoc s: selectors.values()){
+            
+           // System.out.println(s.geom.getParent().getName());
+        
+            App.app.getRootNode().detachChild(s.geom);
+        }
+        
+         for (GameShopDoc b: buttons.values()){
+        
+            App.app.getRootNode().detachChild(b.geom);
+        }
+    
+         App.app.getRootNode().attachChild(selectors.get(mode).geom);
+//         App.app.getRootNode().attachChild(buttons.get(mode).geom);
+              
+//        if(null != mode)switch (mode) {
+//            
+//            case CREATE -> {
+//                
+//               // App.app.getRootNode().attachChild(buttons.get(mode).geom);
+//               System.out.println("CREATE");
+//            }
+//            case MESH -> {
+//                System.out.println("MESH");
+//            }
+//            case ATMS -> {
+//            }
+//            case ANIMATE -> {
+//            }
+//            case SAVE -> {
+//            }
+//            default -> {
+//            }
+//        }  
+        
     }
 }
