@@ -293,10 +293,30 @@ if (i < charPool.length - 31){
                 charPool[i].uv = new Vector4f(texCoords[charPool[i].indexes[0]].x, texCoords[charPool[i].indexes[0]].y, texCoords[charPool[i].indexes[3]].x, texCoords[charPool[i].indexes[3]].y);
                 
                 charPool[i].offset = home.subtract(charPool[i].startPosition).add(position).add(charSpace * (i-firstChar), 0, 0);
-                        
+                    
+                //System.out.println("Char Offset " + charPool[i].offset);
                 i++;
             }
             j++;
+        }
+        
+        for (int k = i; k < charPool.length; k++){
+        
+             //Vector3f position = word.position;
+            int firstChar = i;
+            Vector3f home = charPool[0].startPosition;//new Vector3f().subtract(charPool[firstChar].startPosition).add(position);
+           // Vector3f homeStart = home.add(position);
+            //for (char c: word.word.toCharArray()){
+               // System.out.println(charPool[i].indexes[1]);
+                float charSpace = vertices[charPool[i].indexes[1]].x - vertices[charPool[i].indexes[0]].x;
+          
+                charPool[i].uv = new Vector4f(texCoords[charPool[i].indexes[0]].x, texCoords[charPool[i].indexes[0]].y, texCoords[charPool[i].indexes[3]].x, texCoords[charPool[i].indexes[3]].y);
+                
+                charPool[i].offset = home.subtract(charPool[i].startPosition).add(charSpace * (i-firstChar), 0, 0);
+                    
+               // System.out.println("Char Offset " + charPool[i].offset);
+                i++;
+           // }
         }
         
     }
@@ -310,7 +330,13 @@ if (i < charPool.length - 31){
             temp[tempT] = new Vector3f();
             tempT++;
         }
+        int allWordsLength = 0;
         
+        for (GameShopWord word: words){
+        
+            allWordsLength += word.word.length();
+        }
+//        System.out.println("TempT " + tempT);
          int i = 0;
         for (GameShopChar c: charPool){
          
@@ -322,7 +348,9 @@ if (i < charPool.length - 31){
 // System.out.println(i);
             //Vector4f store = this.characterTexCoordMap.get(c.character);
             
-           // System.out.println(i);
+          // System.out.println("Offset " + c.offset);
+           
+           if (i < allWordsLength * 3){
             temp[i] = vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
             temp[i + 1] =  vertices[i + 1].add(c.offset);
             //if (i < charPool.length - 30){
@@ -332,9 +360,31 @@ if (i < charPool.length - 31){
             temp[i + 31] =  vertices[i + 31].add(c.offset);
            // }
             i+=2;
+           } else {
+           
+                temp[i] = new Vector3f();//vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
+            temp[i + 1] = new Vector3f();// vertices[i + 1].add(c.offset);
+            //if (i < charPool.length - 30){
+            temp[i + 30] = new Vector3f();//  vertices[i + 30].add(c.offset);
+            //}
+            //if (i < charPool.length - 31){
+            temp[i + 31] =  new Vector3f(); //vertices[i + 31].add(c.offset);
+           // }
+            i+=2;
            }
-        }
+           }
+       }
         
+        int j = 0;
+        for (Vector3f t: temp){
+        
+            if (t == null){
+            
+                System.out.println("Null At " + j);
+                break;
+            }
+            j++;
+        }
         return temp;
         
         
@@ -569,8 +619,8 @@ if (i < charPool.length - 31){
 //        System.out.println(vertices.length);
 //        System.out.println(texCoords.length);
 //        
-//        System.out.println(Arrays.asList(vertices));
-//        System.out.println(Arrays.asList(texCoords));
+//        System.out.println(Arrays.asList(moveAllWords()));
+//        System.out.println(Arrays.asList(renderAllWords()));
 //        System.out.println(Arrays.toString(indexes));
 //        
         geom = new Geometry("Mesh", mesh);

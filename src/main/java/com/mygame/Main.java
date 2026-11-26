@@ -27,6 +27,7 @@ import com.jme3.scene.mesh.IndexBuffer;
 import com.jme3.scene.shape.Box;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
+import java.util.HashMap;
 
 /**
  * This is the Main Class of your Game. You should only do initialization here.
@@ -61,6 +62,8 @@ public class Main extends SimpleApplication {
     public GameShopDoc atmsUI;
     public GameShopDoc animateUI;
     public GameShopDoc saveUI;
+    
+    
     
     public static void main(String[] args) {
         Main app = new Main();
