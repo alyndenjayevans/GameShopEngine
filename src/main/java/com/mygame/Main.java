@@ -105,7 +105,7 @@ public class Main extends SimpleApplication {
         
          
         
-        flyCam.setEnabled(false);
+        //flyCam.setEnabled(false);
         inputManager.setCursorVisible(true);
         
         // Bind left mouse click
@@ -125,6 +125,19 @@ public class Main extends SimpleApplication {
         //atms.clear((byte)0, (byte)0, (byte)255, (byte)255);
         //atms.drawCircle(128, 128, 64, (byte)255, (byte)255, (byte)255, (byte)255);
        atms.update();
+       
+                       Vector3f[] corners = new Vector3f[8];
+                corners[CurrencyMesh.BOTTOMLEFTBACK] = new Vector3f(-1,-1,-1);
+                corners[CurrencyMesh.BOTTOMLEFTFRONT] = new Vector3f(-1,-1,1);
+                corners[CurrencyMesh.BOTTOMRIGHTBACK] = new Vector3f(1,-1,-1);
+                corners[CurrencyMesh.BOTTOMRIGHTFRONT] = new Vector3f(1,-1,1);
+                corners[CurrencyMesh.TOPLEFTBACK] = new Vector3f(-1,1,-1);//
+                corners[CurrencyMesh.TOPLEFTFRONT] = new Vector3f(-1,1,1);
+                corners[CurrencyMesh.TOPRIGHTBACK] = new Vector3f(1,1,-1);
+                corners[CurrencyMesh.TOPRIGHTFRONT] = new Vector3f(1,1,1);
+                
+                CurrencyMesh superCube = new CurrencyMesh(CurrencyMesh.genSurfaces(corners), "SuperCube");
+                superCube.bake();
  
 //        Box b = new Box(1, 1, 1);
 //        Geometry geom = new Geometry("Box", b);
@@ -232,9 +245,10 @@ public class Main extends SimpleApplication {
             
                 System.out.println("Create New SuperCube");
                 
-                CurrencySurface currencySurface = new CurrencySurface(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "NewSurface");
-                
-                currencySurface.bake();
+
+//                CurrencySurface currencySurface = new CurrencySurface(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "NewSurface");
+//                
+//                currencySurface.bake();
             }
         });
         
