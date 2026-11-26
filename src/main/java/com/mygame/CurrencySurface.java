@@ -1089,8 +1089,15 @@ public class CurrencySurface {
             
                 Vector3f distance = end.subtract(start);
                 Vector3f unit = distance.divide(4);
+                Vector3f current = new Vector3f();
                 
-                Vector3f current = new Vector3f(start.x + (x * unit.x), start.y + (y * unit.y), start.z + (y * unit.z));
+                if (start.z == end.z){
+                    current = new Vector3f(start.x + (x * unit.x), start.y + (y * unit.y), start.z);
+                } else  if (start.x == end.x){
+                    current = new Vector3f(start.x, start.y + (y * unit.y), start.z + (x * unit.z));
+                } else  if (start.y == end.y){
+                    current = new Vector3f(start.x + (x * unit.x), start.y, start.z + (y * unit.z));
+                }
                 v[i] = new Vector3f(current);//, "Surface " + " " + current.x + " " + current.y + " " + start);
                 i++;
             }
