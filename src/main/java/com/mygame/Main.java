@@ -225,16 +225,70 @@ public class Main extends SimpleApplication {
         
         App.docs.put("create", new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Create"));
  
-        App.docs.get("create").words.add(new GameShopWord("CREATESTUFFHERE", App.docs.get("create").cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
+        App.docs.get("create").words.add(new GameShopWord("NEWSUPERCUBE", App.docs.get("create").cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
         
             @Override
             public void onClick(Vector2f uv){
             
-                System.out.println("Create Things");
+                System.out.println("Create New SuperCube");
             }
         });
-        App.docs.get("create").registerWord("CREATESTUFFHERE");
         
+        App.docs.get("create").registerWord("NEWSUPERCUBE");
+        
+        //  
+        
+        App.docs.get("create").words.add(new GameShopWord("NEWPLANE", App.docs.get("create").cursorIndex, new Vector3f(-7f, 2.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("Create New Plane");
+            }
+        });
+        App.docs.get("create").registerWord("NEWPLANE");
+        
+          
+        //
+        
+        App.docs.get("create").words.add(new GameShopWord("NEWEYES", App.docs.get("create").cursorIndex, new Vector3f(-7f, 2.0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("Create New Eyes");
+            }
+        });
+        App.docs.get("create").registerWord("NEWEYES");
+        
+           
+        //
+        
+        
+        App.docs.get("create").words.add(new GameShopWord("DUPLICATE", App.docs.get("create").cursorIndex, new Vector3f(-7f, 1.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("Duplicate");
+            }
+        });
+        App.docs.get("create").registerWord("DUPLICATE");
+        
+        
+        //
+        
+        
+        App.docs.get("create").words.add(new GameShopWord("DELETE", App.docs.get("create").cursorIndex, new Vector3f(-7f, 1.0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                System.out.println("Delete");
+            }
+        });
+        App.docs.get("create").registerWord("DELETE");
+     
         
          App.docs.get("create").drawAllWords();
       //  doc.moveCharOffsetToWordPosition();
@@ -247,9 +301,13 @@ public class Main extends SimpleApplication {
  
         App.docs.get("create").bake();
         
-          App.docs.put("mesh", new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Mesh"));
+          
+        //
+        
+        
+        App.docs.put("mesh", new GameShopDoc(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "Mesh"));
  
-        App.docs.get("mesh").words.add(new GameShopWord("MESHSTUFFHERE", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
+        App.docs.get("mesh").words.add(new GameShopWord("ROW", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, 3.0f, 0f)){
         
             @Override
             public void onClick(Vector2f uv){
@@ -258,8 +316,186 @@ public class Main extends SimpleApplication {
                 System.out.println("Mesh Things");
             }
         });
-        App.docs.get("mesh").registerWord("MESHSTUFFHERE");
+        App.docs.get("mesh").registerWord("ROW");
         
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("COLUMN", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, 2.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("COLUMN");
+        
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("ALL", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, 2.0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("ALL");
+        
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("CIRCLE", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, 1.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("CIRCLE");
+        
+        
+        // 
+        
+        App.docs.get("mesh").words.add(new GameShopWord("SPHERE", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, 1.0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("SPHERE");
+       
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("MOVE", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, 0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+         //System.out.println(App.docs.get("mesh").cursorIndex);
+        App.docs.get("mesh").registerWord("MOVE");
+        //  System.out.println(App.docs.get("mesh").cursorIndex);
+       
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("X", App.docs.get("mesh").cursorIndex, new Vector3f(-6.5f, -0.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("X");
+        
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("Y", App.docs.get("mesh").cursorIndex, new Vector3f(-6f, -0.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("Y");
+        
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("Z", App.docs.get("mesh").cursorIndex, new Vector3f(-5.5f, -0.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("Z");
+        
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("FLIP", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, -1.0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("FLIP");
+        
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("X", App.docs.get("mesh").cursorIndex, new Vector3f(-6.5f, -1.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("X");
+        
+        
+        //
+        
+         App.docs.get("mesh").words.add(new GameShopWord("Y", App.docs.get("mesh").cursorIndex, new Vector3f(-6f, -1.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("Y");
+        
+          App.docs.get("mesh").words.add(new GameShopWord("Z", App.docs.get("mesh").cursorIndex, new Vector3f(-5.5f, -1.5f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("Z");
+        
+          App.docs.get("mesh").words.add(new GameShopWord("SCALE", App.docs.get("mesh").cursorIndex, new Vector3f(-7f, -2.0f, 0f)){
+        
+            @Override
+            public void onClick(Vector2f uv){
+            
+                //App.selectMode(Mode.MESH);
+                System.out.println("Mesh Things");
+            }
+        });
+        App.docs.get("mesh").registerWord("SCALE");
+        
+        //
         
          App.docs.get("mesh").drawAllWords();
       //  doc.moveCharOffsetToWordPosition();

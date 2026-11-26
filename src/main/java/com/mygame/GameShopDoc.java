@@ -82,6 +82,7 @@ public class GameShopDoc extends CurrencySurface {
         }
         this.atms.update();
         
+      //  preregisterAllWords();
 //        if (buffer == null) {
 //        System.out.println("Buffer is null");
 //        return;
@@ -187,8 +188,10 @@ public class GameShopDoc extends CurrencySurface {
               
         }
         
-        //System.out.println("CharPoolIndex " + charPoolIndex);
-        
+//        if (address.equals("Mesh")){
+//        System.out.println("CharPoolIndex " + charPoolIndex);
+//        System.out.println(charPool[224].character);
+//        }
         //calculateCharPositions();
     }
     
@@ -199,6 +202,19 @@ public class GameShopDoc extends CurrencySurface {
         
     }
     
+//     public void preregisterAllWords(){
+//    
+//        int i = 0;
+//        for (GameShopChar c: charPool){
+//        
+//           // for (char c: word.word.toCharArray()){
+//            
+//                charPool[i].character = 'A';
+//                i++;
+//            //}
+//        }
+//    }
+     
     public void drawAllWords(){
     
         int i = 0;
@@ -207,6 +223,7 @@ public class GameShopDoc extends CurrencySurface {
             for (char c: word.word.toCharArray()){
             
                 charPool[i].character = c;
+               //System.out.println();
                 i++;
             }
         }
@@ -221,7 +238,15 @@ public class GameShopDoc extends CurrencySurface {
             temp[tempT] = new Vector2f();
             tempT++;
         }
+        
+        int allWordsLength = 0;
+        
+        for (GameShopWord word: words){
+        
+            allWordsLength += word.word.length();
+        }
         int i = 0;
+        int iChar = 0;
         for (GameShopChar c: charPool){
         
 //            if (i < charPool.length - 31){
@@ -239,7 +264,8 @@ if (i % 30 == 0 && i > 0) {
             
                 i += 30;
             }
-if (i < charPool.length - 31){
+if (iChar < allWordsLength){
+//if (i < charPool.length - 31){
 // System.out.println(i);
             Vector4f store = this.characterTexCoordMap.get(c.character);
             
@@ -254,6 +280,7 @@ if (i < charPool.length - 31){
            // }
             i+=2;
            }
+           iChar++;
         }
         
         return temp;
@@ -325,7 +352,7 @@ if (i < charPool.length - 31){
     
         Vector3f[] temp = new Vector3f[vertices.length];
         int tempT = 0;
-        for (Vector3f t: temp){
+        for (Vector3f t: vertices){
         
             temp[tempT] = new Vector3f();
             tempT++;
@@ -334,24 +361,35 @@ if (i < charPool.length - 31){
         
         for (GameShopWord word: words){
         
+//            if (address.equals("Mesh")){
+//            
+//                System.out.print("start " + word.startIndex);
+//                System.out.print("end " + word.endIndex);
+//        
+//            }
             allWordsLength += word.word.length();
         }
-//        System.out.println("TempT " + tempT);
+//       System.out.println("allwords " + allWordsLength);
+//       
+//       System.out.println("charPool " + charPool.length);
          int i = 0;
          int iChar = 0;
         for (GameShopChar c: charPool){
-         
+                       // System.out.print(c.character);
+
 if (i % 30 == 0 && i > 0) {
             
                 i += 30;
             }
-if (i < charPool.length - 31){
+//if (i < charPool.length - 31){
 // System.out.println(i);
             //Vector4f store = this.characterTexCoordMap.get(c.character);
             
           // System.out.println("Offset " + c.offset);
            
            if (iChar < allWordsLength){
+               // System.out.println("iChar " + c.character + " " + c.offset);
+            //   System.out.print(c.character);
             temp[i] = vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
             temp[i + 1] =  vertices[i + 1].add(c.offset);
             //if (i < charPool.length - 30){
@@ -361,22 +399,31 @@ if (i < charPool.length - 31){
             temp[i + 31] =  vertices[i + 31].add(c.offset);
            // }
             i+=2;
-           } else {
-           
-                temp[i] = new Vector3f();//vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
-            temp[i + 1] = new Vector3f();// vertices[i + 1].add(c.offset);
-            //if (i < charPool.length - 30){
-            temp[i + 30] = new Vector3f();//  vertices[i + 30].add(c.offset);
-            //}
-            //if (i < charPool.length - 31){
-            temp[i + 31] =  new Vector3f(); //vertices[i + 31].add(c.offset);
-           // }
-            i+=2;
-           }
-           }
+}
+//            if (iChar >= allWordsLength){
+//            
+//                System.out.println(c.character + " " + c.offset);
+//            }
+          // } 
+//           else {
+//               
+//             //  System.out.print(c.character);
+//           
+//                temp[i] = new Vector3f();//vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
+//            temp[i + 1] = new Vector3f();// vertices[i + 1].add(c.offset);
+//            //if (i < charPool.length - 30){
+//            temp[i + 30] = new Vector3f();//  vertices[i + 30].add(c.offset);
+//            //}
+//            //if (i < charPool.length - 31){
+//            temp[i + 31] =  new Vector3f(); //vertices[i + 31].add(c.offset);
+//           // }
+//            i+=2;
+//           }
+          // }
 
            iChar++;
        }
+       // System.out.println("i " + i);
         
         int j = 0;
         for (Vector3f t: temp){
@@ -621,9 +668,12 @@ if (i < charPool.length - 31){
         
 //        System.out.println(vertices.length);
 //        System.out.println(texCoords.length);
-//        
+
+//        if (address.equals("Mesh")){
+////        
 //        System.out.println(Arrays.asList(moveAllWords()));
 //        System.out.println(Arrays.asList(renderAllWords()));
+//        }
 //        System.out.println(Arrays.toString(indexes));
 //        
         geom = new Geometry("Mesh", mesh);
