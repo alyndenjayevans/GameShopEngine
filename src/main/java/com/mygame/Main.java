@@ -490,7 +490,7 @@ public class Main extends SimpleApplication {
             public void onClick(Vector2f uv){
             
                 //App.selectMode(Mode.MESH);
-                System.out.println("Mesh Things");
+                System.out.println("Scale");
             }
         });
         App.docs.get("mesh").registerWord("SCALE");
