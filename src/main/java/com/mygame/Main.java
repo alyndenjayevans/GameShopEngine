@@ -231,6 +231,10 @@ public class Main extends SimpleApplication {
             public void onClick(Vector2f uv){
             
                 System.out.println("Create New SuperCube");
+                
+                CurrencySurface currencySurface = new CurrencySurface(CurrencySurface.genSurfaceVectors(new Vector3f(0,0,0), new Vector3f(4,4,0)), atms, "NewSurface");
+                
+                currencySurface.bake();
             }
         });
         

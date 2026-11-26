@@ -63,8 +63,8 @@ public class CurrencySurface {
         
         ATMS loadAtms = (ATMS) App.app.getAssetManager().loadAsset("ATMS/Fonts/Default/" + "L" + ".font.atms");
 
-            atms.data = loadAtms.data;
-            atms.update();
+            this.atms.data = loadAtms.data;
+            this.atms.update();
             
 //        for (char c: FontMaker.alphaNumerical.toCharArray()){
 //        
