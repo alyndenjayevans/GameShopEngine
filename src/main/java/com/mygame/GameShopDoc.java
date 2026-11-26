@@ -338,6 +338,7 @@ if (i < charPool.length - 31){
         }
 //        System.out.println("TempT " + tempT);
          int i = 0;
+         int iChar = 0;
         for (GameShopChar c: charPool){
          
 if (i % 30 == 0 && i > 0) {
@@ -350,7 +351,7 @@ if (i < charPool.length - 31){
             
           // System.out.println("Offset " + c.offset);
            
-           if (i < allWordsLength * 3){
+           if (iChar < allWordsLength){
             temp[i] = vertices[i].add(c.offset);//new Vector2f(store.x, store.y);
             temp[i + 1] =  vertices[i + 1].add(c.offset);
             //if (i < charPool.length - 30){
@@ -373,6 +374,8 @@ if (i < charPool.length - 31){
             i+=2;
            }
            }
+
+           iChar++;
        }
         
         int j = 0;
