@@ -54,8 +54,8 @@ public class CurrencyMesh {
         s[FRONT] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[BOTTOMLEFTFRONT], corners[TOPRIGHTFRONT]), null, "Front");
         s[BACK] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[BOTTOMLEFTBACK], corners[TOPRIGHTBACK]), null, "Back");
         s[LEFT] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[BOTTOMLEFTBACK], corners[TOPLEFTFRONT]), null, "Left");
-        s[RIGHT] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[BOTTOMRIGHTBACK], corners[TOPRIGHTFRONT]), null, "Right");
-        s[TOP] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[TOPLEFTBACK], corners[TOPRIGHTFRONT]), null, "Top");
+        s[RIGHT] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[BOTTOMRIGHTFRONT], corners[TOPRIGHTBACK]), null, "Right");
+        s[TOP] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[TOPLEFTFRONT], corners[TOPRIGHTBACK]), null, "Top");
         s[BOTTOM] = new CurrencySurface(CurrencySurface.genSurfaceVectors(corners[BOTTOMLEFTBACK], corners[BOTTOMRIGHTFRONT]), null, "Bottom");
                                                                 
         

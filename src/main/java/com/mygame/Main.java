@@ -681,6 +681,8 @@ public class Main extends SimpleApplication {
         App.selectors.put(Mode.SAVE, App.docs.get("save"));
         
         App.selectMode(Mode.CREATE);
+        
+        //App.app.getRootNode().detachAllChildren();
         //App.selectors.put("Save", save);
         //doc.geom.scale(1.1f);
         //doc.geom.scale(10);
